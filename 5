@@ -1,0 +1,62 @@
+require 'csv'
+
+def first_element(filename)
+  table = CSV.read(filename)
+  table[0][0].to_i
+end
+
+def arithmetic_mean(filename)
+  sum = amount = 0
+  CSV.foreach(filename) do |row|
+    sum += row[0].to_i
+    amount += 1
+  end
+  result = sum / amount
+end
+
+def maximum(filename)
+  max = first_element(filename)
+  CSV.foreach(filename) do |row|
+    row[0].to_i > max ? max = row[0].to_i : max
+  end
+  max
+end
+
+def minimum(filename)
+  min = first_element(filename)
+  CSV.foreach(filename) do |row|
+    row[0].to_i < min ? min = row[0].to_i : min
+  end
+  min
+end
+
+def unbiased_sample_variance(filename)
+  sample_mean = arithmetic_mean(filename)
+  sum = amount = 0
+  CSV.foreach(filename) do |row|
+    sum += (row[0].to_i - sample_mean) ** 2
+    amount += 1
+  end
+  result = ( 1.to_f / (amount - 1) ) * sum
+end
+
+
+puts "1 - maximum\n2 - minimum\n3 - arithmetic mean\n4 - unbuased sample variance"
+task = gets.chomp
+puts "Enter filename"
+filename = gets.chomp
+case task
+when "1"
+  result = maximum(filename)
+  puts "Maximum"
+when "2"
+  result = minimum(filename)
+  puts "Minimum"
+when "3"
+  result = arithmetic_mean(filename)
+  puts "Arithmetic mean:"
+when "4"
+  result = unbiased_sample_variance(filename)
+  puts "Unbuased sample variance:"
+end
+puts result
