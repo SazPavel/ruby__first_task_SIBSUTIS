@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 def rabbits_in_month(month)
-  if month.zero?
+  if month < 1
     0
   else
     2**(month - 1)

@@ -1,32 +1,44 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require '../calculator'
+require './calculator.rb'
 
-RSpec.describe Calculator do
-  let(:calculator) { Calculator.new }
+RSpec.describe DegreeCalculator do
+  let(:calculator) { DegreeCalculator.new }
 
-  context 'when degree conversion' do
-    it 'C to F' do
-      calculator.degree = 25
-      calculator.used_scale = 'C'
-      calculator.need_scale = 'F'
-      calculator.used_to_need
-      expect(calculator.degree).to be 77.0
+  context 'when input data' do
+    it 'degree input' do
+      calculator.degree = 273.15
+      expect(calculator.degree).to be 273.15
     end
-    it 'K to C' do
-      calculator.degree = 1000
+    it 'need_scale input' do
       calculator.used_scale = 'K'
-      calculator.need_scale = 'C'
-      calculator.used_to_need
-      expect(calculator.degree).to be 726.85
+      expect(calculator.used_scale).to be 'K'
     end
-    it 'F to K' do
-      calculator.degree = 77
-      calculator.used_scale = 'F'
+    it 'used_scale input' do
       calculator.need_scale = 'K'
-      calculator.used_to_need
-      expect(calculator.degree).to be 298.15
+      expect(calculator.need_scale).to be 'K'
+    end
+  end
+
+  context 'when valid data' do
+    it 'transform K to F' do
+      calculator.used_scale = 'K'
+      calculator.degree = 273.15
+      calculator.need_scale = 'F'
+      calculator.transform
+      expect(calculator.degree_k).to be 273.15
+      expect(calculator.degree_c).to be 0.0
+      expect(calculator.degree).to be 32.0
+    end
+    it 'transform F to K' do
+      calculator.used_scale = 'F'
+      calculator.degree = 32.0
+      calculator.need_scale = 'K'
+      calculator.transform
+      expect(calculator.degree_c).to be 0.0
+      expect(calculator.degree_f).to be 32.0
+      expect(calculator.degree).to be 273.15
     end
   end
 
@@ -39,9 +51,21 @@ RSpec.describe Calculator do
       calculator.used_scale = ''
       expect(calculator.used_scale).to be 'C'
     end
+    it 'used_scale should be known' do
+      calculator.degree = 0.0
+      calculator.used_scale = 'D'
+      calculator.used_scale = 'C'
+      expect(calculator.transform).to be(-1)
+    end
     it 'need_scale should be not nil' do
       calculator.need_scale = ''
       expect(calculator.need_scale).to be 'K'
+    end
+    it 'need_scale should be known' do
+      calculator.degree = 0.0
+      calculator.need_scale = 'C'
+      calculator.used_scale = 'D'
+      expect(calculator.transform).to be(-1)
     end
   end
 end

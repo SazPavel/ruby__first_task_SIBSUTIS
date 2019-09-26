@@ -2,6 +2,7 @@
 
 puts 'Enter word'
 word = gets.chomp.upcase
+
 if word.reverse == word
   puts "#{word} is a palindrome"
 else

@@ -1,76 +1,79 @@
 # frozen_string_literal: true
 
-# Degree calculator
-class Calculator
-  attr_reader :degree, :need_scale, :used_scale
+# Degree calculator for celsius kelvin and fahrenheit
+class DegreeCalculator
+  attr_reader :degree, :degree_c, :degree_k, :degree_f, :need_scale, :used_scale
 
   def degree=(degree)
-    @degree = if degree != ''
-                Float(degree)
-              else
+    @degree = if degree == ''
                 0
+              else
+                degree.to_f
               end
   end
 
   def used_scale=(scale)
-    @used_scale = scale
-    @used_scale = 'C' if @used_scale.empty?
+    @used_scale = if scale.empty?
+                    'C'
+                  else
+                    scale
+                  end
   end
 
   def need_scale=(scale)
-    @need_scale = scale
-    @need_scale = 'K' if @need_scale.empty?
+    @need_scale = if scale.empty?
+                    'K'
+                  else
+                    scale
+                  end
   end
 
-  def used_to_need
+  def transform
     case @used_scale
     when 'C'
-      celsius_to
+      @degree_c = @degree
+      cel_to_kel
+      cel_to_far
     when 'K'
-      kelvin_to
+      @degree_k = @degree
+      kel_to_cel
+      cel_to_far
     when 'F'
-      fahrenheit_to
+      @degree_f = @degree
+      far_to_cel
+      cel_to_kel
     else
-      abort "Unknown scale #{used_scale}"
+      return -1
+    end
+    return_degree
+  end
+
+  def return_degree
+    case @need_scale
+    when 'K'
+      @degree = @degree_k
+    when 'F'
+      @degree = @degree_f
+    when 'C'
+      @degree = @degree_c
+    else
+      -1
     end
   end
 
-  def celsius_to
-    case @need_scale
-    when 'K'
-      @degree += 273.15
-    when 'F'
-      @degree = @degree * 9 / 5 + 32
-    when 'C'
-      @degree
-    else
-      abort "Unknown scale #{need_scale}"
-    end
+  def cel_to_kel
+    @degree_k = @degree_c + 273.15
   end
 
-  def kelvin_to
-    case @need_scale
-    when 'C'
-      @degree -= 273.15
-    when 'F'
-      @degree = (@degree - 273.15) * 9 / 5 + 32
-    when 'K'
-      @degree
-    else
-      abort "Unknown scale #{need_scale}"
-    end
+  def kel_to_cel
+    @degree_c = @degree_k - 273.15
   end
 
-  def fahrenheit_to
-    case @need_scale
-    when 'C'
-      @degree = (@degree - 32) * 5 / 9
-    when 'K'
-      @degree = (@degree - 32) * 5 / 9 + 273.15
-    when 'F'
-      @degree
-    else
-      abort "Unknown scale #{need_scale}"
-    end
+  def cel_to_far
+    @degree_f = @degree_c * 9 / 5 + 32
+  end
+
+  def far_to_cel
+    @degree_c = (@degree_f - 32) * 5 / 9
   end
 end

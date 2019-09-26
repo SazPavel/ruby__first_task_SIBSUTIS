@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './work'
+require './work_csv'
 puts "1 - maximum\n2 - minimum\n3 - arithmetic mean\n4 - sample variance"
 work = WorkCsv.new
 task = gets.chomp
