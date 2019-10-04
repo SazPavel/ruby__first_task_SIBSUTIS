@@ -16,4 +16,4 @@ calc.need_scale = gets.chomp.capitalize
 abort 'Unknown scale' if calc.transform == -1
 
 puts 'Result:'
-puts calc.degree
+puts calc.return_degree

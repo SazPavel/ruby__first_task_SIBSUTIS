@@ -6,7 +6,7 @@ class DegreeCalculator
 
   def degree=(degree)
     @degree = if degree == ''
-                0
+                0.0
               else
                 degree.to_f
               end
@@ -43,19 +43,18 @@ class DegreeCalculator
       far_to_cel
       cel_to_kel
     else
-      return -1
+      -1
     end
-    return_degree
   end
 
   def return_degree
     case @need_scale
     when 'K'
-      @degree = @degree_k
+      @degree_k
     when 'F'
-      @degree = @degree_f
+      @degree_f
     when 'C'
-      @degree = @degree_c
+      @degree_c
     else
       -1
     end
