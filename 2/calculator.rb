@@ -4,6 +4,12 @@
 class DegreeCalculator
   attr_reader :degree, :degree_c, :degree_k, :degree_f, :need_scale, :used_scale
 
+  def initialize(degree, used_scale, need_scale)
+    self.degree = degree
+    self.used_scale = used_scale
+    self.need_scale = need_scale
+  end
+
   def degree=(degree)
     @degree = if degree == ''
                 0.0
@@ -16,7 +22,7 @@ class DegreeCalculator
     @used_scale = if scale.empty?
                     'C'
                   else
-                    scale
+                    scale.capitalize
                   end
   end
 
@@ -24,7 +30,7 @@ class DegreeCalculator
     @need_scale = if scale.empty?
                     'K'
                   else
-                    scale
+                    scale.capitalize
                   end
   end
 

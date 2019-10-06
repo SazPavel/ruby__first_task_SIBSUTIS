@@ -2,16 +2,16 @@
 
 require './calculator'
 
-calc = DegreeCalculator.new
-
 puts 'Enter degrees'
-calc.degree = gets.chomp
+degree = gets.chomp
 
 puts 'Enter the name of the scale used'
-calc.used_scale = gets.chomp.capitalize
+used_scale = gets.chomp
 
 puts 'Enter the name of the desired scale'
-calc.need_scale = gets.chomp.capitalize
+need_scale = gets.chomp
+
+calc = DegreeCalculator.new(degree, used_scale, need_scale)
 
 abort 'Unknown scale' if calc.transform == -1
 
