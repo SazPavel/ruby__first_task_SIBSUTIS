@@ -66,6 +66,8 @@ class DegreeCalculator
     end
   end
 
+  private
+
   def cel_to_kel
     @degree_k = @degree_c + 273.15
   end

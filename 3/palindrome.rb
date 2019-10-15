@@ -2,7 +2,7 @@
 
 # palindrome check
 class Palindrome
-  def palindrome?(word)
+  def self.palindrome?(word)
     word.reverse == word
   end
 end

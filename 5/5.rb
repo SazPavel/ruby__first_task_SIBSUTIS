@@ -12,16 +12,16 @@ task = gets.chomp
 
 case task
 when '1'
-  result = csv_stats.maximum(csv_table)
+  result = csv_stats.maximum
   puts 'Maximum'
 when '2'
-  result = csv_stats.minimum(csv_table)
+  result = csv_stats.minimum
   puts 'Minimum'
 when '3'
-  result = csv_stats.mean(csv_table)
+  result = csv_stats.mean
   puts 'Arithmetic mean:'
 when '4'
-  result = csv_stats.unbiased_sample_variance(csv_table)
+  result = csv_stats.unbiased_sample_variance
   puts 'Unbuased sample variance:'
 end
 puts result

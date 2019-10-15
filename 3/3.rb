@@ -2,11 +2,9 @@
 
 require './palindrome'
 
-palindrome = Palindrome.new
 puts 'Enter word'
-palindrome.word = gets.chomp.upcase
 
-if palindrome.is_palindrome? == 1
+if Palindrome.palindrome?(gets.chomp.upcase) == true
   puts 'Palindrome'
 else
   puts 'No palindrome'
